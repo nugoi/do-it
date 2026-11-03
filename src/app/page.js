@@ -11,7 +11,7 @@ export default function Home() {
         <main className={styles.main}>
           <h1 className={styles.title}>გამარჯობა, {name || "unknown"}</h1>
           <h2>{isloaded === true ? "ჩატვირთულა" : "არ ჩატვირთულა"}</h2>
-          {3 + 7 * 10}
+          {3 + 7 * 7}
           {/* {headerVisible && <Header/>} */}
         </main>
     </>
