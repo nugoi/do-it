@@ -1,0 +1,18 @@
+.headerCont {
+    background-color: #f1de0b;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navList {
+    display: flex;
+    gap: 20px;
+    list-style-type: none;
+}
+
+.navItem {
+    color: rgb(150, 27, 27);
+    text-decoration: none;
+}
