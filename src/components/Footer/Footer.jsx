@@ -4,7 +4,7 @@ export default function Footer() {
     const currentYear = new Date().getFullYear();
     return (
         <footer className={styles.footer}>
-            <p>©{currentYear} Nugos. All rights reserved.</p>
+            <p>©{currentYear} Kaikaci Nugos. All rights reserved.</p>
         </footer>
     );
 }
