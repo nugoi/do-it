@@ -7,7 +7,12 @@
 }
 
 .listCont {
+    width: 80%;
     margin-left: 20px;
+}
+
+.done {
+    text-decoration: line-through;
 }
 
 /* .todoCont button {
