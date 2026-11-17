@@ -1,10 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
 
 const Todo = () => {
   const [task, setTask] = useState("");
-  const [tasksArray, setTasksArray] = useState([{task: "test",completed: true, id: 1}]);
+  const [tasksArray, setTasksArray] = useState([]);
 
   const onChange = (e) => {
     setTask(e.target.value);
@@ -12,20 +12,27 @@ const Todo = () => {
   };
 
   const addTask = () => {
-
-    setTasksArray ((prevTasks)=> {
-      return[...prevTasks, {task: task, completed:false, id: crypto.randomUUID()}]
-    })
+    setTasksArray((prevTasks) => {
+      return [
+        ...prevTasks,
+        { task: task, completed: false, id: crypto.randomUUID() },
+      ];
+    });
+    setTask("");
   };
-console.log(tasksArray)
+
+  useEffect(() => {
+    console.log(tasksArray);
+  }, [tasksArray]);
+
   return (
     <div className={styles.todoCont}>
-      <input type="text" onChange={onChange} />
+      <input type="text" onChange={onChange} value={task}/>
       <button onClick={addTask}>Add Task</button>
       <ol className={styles.listCont}>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
+        {tasksArray.map((t,i,a) => (
+          <li key={t.id}>{t.task}</li>
+        ))}
       </ol>
     </div>
   );
