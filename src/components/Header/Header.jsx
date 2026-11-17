@@ -14,7 +14,7 @@ function Header({ navigationData }) {
             console.log(navObj.title + index);
             return (
               <li key={navObj.title + index}>
-                <Link href={navObj.Path} className={styles.navItem}>
+                <Link href={navObj.path} className={styles.navItem}>
                   {navObj.title}
                 </Link>
               </li>

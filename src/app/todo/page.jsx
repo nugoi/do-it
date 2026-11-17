@@ -4,15 +4,20 @@ import styles from "./page.module.css";
 
 const Todo = () => {
   const [task, setTask] = useState("");
-  const [tasksArray, setTasksArray] = useState([]);
+  const [tasksArray, setTasksArray] = useState([{task: "test",completed: true, id: 1}]);
 
   const onChange = (e) => {
     setTask(e.target.value);
     console.log(task);
   };
 
-  const addTask = () => {};
+  const addTask = () => {
 
+    setTasksArray ((prevTasks)=> {
+      return[...prevTasks, {task: task, completed:false, id: crypto.randomUUID()}]
+    })
+  };
+console.log(tasksArray)
   return (
     <div className={styles.todoCont}>
       <input type="text" onChange={onChange} />
