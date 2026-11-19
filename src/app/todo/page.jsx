@@ -62,7 +62,6 @@ const Todo = () => {
               >
                 {t.task}
               </li>
-              {/* <button onClick={() => addTask(t.id)}>add</button> */}
               <button onClick={() => removeTask(t.id)}>Remove</button>
             </div>
           );
