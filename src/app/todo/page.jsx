@@ -21,8 +21,6 @@ const Todo = () => {
     setTask("");
   };
 
-  // const addTask -(id) => {}
-
   const removeTask = (id) => {
     let res = tasksArray.filter((t) => t.id !== id);
     console.log(res);
@@ -48,12 +46,16 @@ const Todo = () => {
 
   return (
     <div className={styles.todoCont}>
-      <input type="text" onChange={onChange} value={task} onKeyDown={onKeyDown} />
+      <input
+        type="text"
+        onChange={onChange}
+        value={task}
+        onKeyDown={onKeyDown}
+      />
       <button onClick={addTask}>Add Task</button>
       <ol className={styles.listCont}>
         {tasksArray.map((t, i, a) => {
           return (
-
             <div>
               <li
                 key={t.id}
