@@ -34,16 +34,14 @@ const Todo = () => {
   };
 
   useEffect(() => {
-    const dataInStorage = localStorage.getItem("todoTasks");
-    if (dataInStorage !== null) return;
-    if (dataInStorage.length > 0) {
-      setTasksArray(JSON.parse(dataInStorage));
-    }
+    if (localStorage.getItem("todoTasks") !== null) return;
+    const dataInStorage = JSON.parse(localStorage.getItem("todoTasks"));
+    if (dataInStorage.length > 0) setTasksArray(dataInStorage);
+    
     console.log(dataInStorage);
   });
 
   useEffect(() => {
-    console.log(tasksArray);
     localStorage.setItem("todoTasks", JSON.stringify(tasksArray));
   }, [tasksArray]);
 
@@ -83,7 +81,7 @@ const Todo = () => {
               </div>
             );
           })}
-          {tasksArray.length === 0 ? <h2>("there is no tasks")</h2> : null}
+          {tasksArray.length === 0 && <h2>("there is no tasks")</h2>}
         </ol>
       </div>
     </div>
