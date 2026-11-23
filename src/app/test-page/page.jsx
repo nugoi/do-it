@@ -1,46 +1,63 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 
-// useState, useEffect...
-
 export default function Testpage() {
-  // let count = 0;
-
   const [count, setCount] = useState(0);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    console.log("გამარჯობა");
-    // Dependency array:
+    const savedCount = localStorage.getItem("count");
+
+    if (savedCount !== null) {
+      try {
+        const parsedCount = JSON.parse(savedCount);
+
+        if (Number.isFinite(parsedCount) && parsedCount >= 0) {
+          setCount(parsedCount);
+        }
+      } catch {
+        setCount(0);
+      }
+    }
+
+    setLoaded(true);
   }, []);
 
   useEffect(() => {
-    // მაგ. ინფორმაციის წამოღება, შენახვა localStorage-ში.
-    console.log(localStorage.getItem("userName"));
-  }, []);
+    if (loaded) {
+      localStorage.setItem("count", JSON.stringify(count));
+    }
+  }, [count, loaded]);
 
   const incrementByOne = () => {
-    // count++;
-
-    setCount((prevCount) => {
-      // console.log(prevCount);
-
-      return prevCount + 1;
-    });
+    setCount((prevCount) => prevCount + 1);
   };
 
-  const decreamentByOne = () => {
+  const decrementByOne = () => {
     setCount((prevCount) => {
-      return prevCount - 1;
+      if (prevCount > 0) {
+        return prevCount - 1;
+      }
+
+      return 0;
     });
   };
 
   return (
-    <>
-      <h2>{count}</h2>
-      <button onClick={incrementByOne}>+</button>
-      {"     "}
-      <button onClick={decreamentByOne}>-</button>
-    </>
+    <div className={styles.container}>
+      <h2 className={styles.count}>{count}</h2>
+
+      <div className={styles.buttons}>
+        <button className={styles.button} onClick={incrementByOne}>
+          +
+        </button>
+
+        <button className={styles.button} onClick={decrementByOne}>
+          -
+        </button>
+      </div>
+    </div>
   );
 }
