@@ -11,29 +11,45 @@ const Todo = () => {
     console.log(task);
   };
 
-  const addTask = () => {};
+  const addTask = () => {
+    if (!task) return;
+    setTasksArray((prevTasks) => {
+      return [
+        ...prevTasks,
+        { task: task, completed: false, id: crypto.randomUUID() },
+      ];
+    });
+    setTask("");
+  };
 
-  const removeTask = (id) => {};
+  const removeTask = (id) => {
+    let res = tasksArray.filter((t) => t.id !== id);
+    setTasksArray(res);
+  };
 
-  const toggleTask = (id) => {};
+  const toggleTask = (id) => {
+    const toggledArray = tasksArray.map((t) => {
+      return t.id === id ? { ...t, completed: !t.completed } : t;
+    });
+    setTasksArray(toggledArray);
+  };
 
   useEffect(() => {
-    if (localStorage.getItem("todoTasks") !== null) return;
+    if (localStorage.getItem("todoTasks") === null) return;
 
     const dataInStorage = JSON.parse(localStorage.getItem("todoTasks"));
     if (dataInStorage.length > 0) setTasksArray(dataInStorage);
 
-    throw new Error("კავშირი არ არის დამყარებული");
+    // throw new Error("სერვერთან ვერ ხდება დაკავშირება, სცადეთ მოგვიანებით!")
   }, []);
 
   useEffect(() => {
     localStorage.setItem("todoTasks", JSON.stringify(tasksArray));
   }, [tasksArray]);
 
+  // Enter-ის listener:
   const onKeyDown = (e) => {
-    if (e.key === "Enter") {
-      addTask();
-    }
+    if (e.key === "Enter") addTask();
   };
 
   return (
@@ -46,29 +62,26 @@ const Todo = () => {
           onKeyDown={onKeyDown}
         />
         <button onClick={addTask}>Add Task</button>
-        <ol className={styles.listCont}>
-          {tasksArray.map((t, i, a) => {
-            return (
-              <div key={t.id} className={styles.taskCont}>
-                <li
-                  key={t.id}
-                  onClick={() => toggleTask(t.id)}
-                  className={t.completed ? styles.done : ""}
-                >
-                  {t.task}
-                </li>
-                <button
-                  className={styles.rmBtn}
-                  onClick={() => removeTask(t.id)}
-                >
-                  X
-                </button>
-              </div>
-            );
-          })}
-          {tasksArray.length === 0 && <h2>("there is no tasks")</h2>}
-        </ol>
       </div>
+      <ol className={styles.listCont}>
+        {tasksArray.map((t, index, array) => {
+          return (
+            <div key={t.id} className={styles.taskCont}>
+              <li
+                onClick={() => toggleTask(t.id)}
+                className={t.completed ? styles.done : ""}
+              >
+                {t.task}
+              </li>
+              <button className={styles.rmBtn} onClick={() => removeTask(t.id)}>
+                X
+              </button>
+            </div>
+          );
+        })}
+
+        {tasksArray.length === 0 && <h3>{"No tasks:)"}</h3>}
+      </ol>
     </div>
   );
 };
