@@ -12,26 +12,12 @@ const Todo = () => {
   };
 
   const addTask = () => {
-    if (!task) return;
-    setTasksArray((prevTasks) => {
-      return [
-        ...prevTasks,
-        { task: task, completed: false, id: crypto.randomUUID() },
-      ];
-    });
-    setTask("");
   };
 
   const removeTask = (id) => {
-    let res = tasksArray.filter((t) => t.id !== id);
-    setTasksArray(res);
   };
 
   const toggleTask = (id) => {
-    const toggledArray = tasksArray.map((t) => {
-      return t.id === id ? { ...t, completed: !t.completed } : t;
-    });
-    setTasksArray(toggledArray);
   };
 
   useEffect(() => {
