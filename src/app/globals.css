@@ -36,3 +36,11 @@ body {
   background-color: rgb(114, 58, 58);
   color: white;
 }
+
+.loadingCont {
+  text-align: center;
+}
+
+.notFoundCont {
+  margin: 0 auto;
+}
