@@ -1,10 +1,10 @@
 import React from "react";
-import link from "next/link";
+import Link from "next/link";
 const NotFound = () => {
   return (
     <div>
       <h1 className="notFoundCont">not-found</h1>
-      <Link href={"/"}>Go Home</Link>
+      <Link href="/">Go Home</Link>
     </div>
   );
 };
